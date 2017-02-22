@@ -46,12 +46,15 @@ public class SvgPathParser {
      * <li>H/h - x+ - Horizontal ine to
      * <li>V/v - y+ - Vertical line to
      * <li>C/c - (x1 y1 x2 y2 x y)+ - Cubic bezier to
-     * <li>S/s - (x2 y2 x y)+ - Smooth cubic bezier to (shorthand that assumes the x2, y2 from previous C/S is the x1, y1 of this bezier)
+     * <li>S/s - (x2 y2 x y)+ - Smooth cubic bezier to (shorthand that assumes the x2, y2 from
+     * previous C/S is the x1, y1 of this bezier)
      * <li>Q/q - (x1 y1 x y)+ - Quadratic bezier to
-     * <li>T/t - (x y)+ - Smooth quadratic bezier to (assumes previous control point is "reflection" of last one w.r.t. to current point)
+     * <li>T/t - (x y)+ - Smooth quadratic bezier to (assumes previous control point is
+     * "reflection" of last one w.r.t. to current point)
      * </ol>
      * <p/>
-     * Numbers are separate by whitespace, comma or nothing at all (!) if they are self-delimiting, (ie. begin with a - sign)
+     * Numbers are separate by whitespace, comma or nothing at all (!) if they are
+     * self-delimiting, (ie. begin with a - sign)
      *
      * @param dAttributeOfPath the d attribute of &lt;path&gt; from the XML
      */
@@ -123,7 +126,8 @@ public class SvgPathParser {
                 }
                 case 'Z':
                 case 'z': {
-                    Log.d(null, String.format("close, move to: [%s,%s]", subPathStartX, subPathStartY));
+                    Log.d(null, String.format("close, move to: [%s,%s]", subPathStartX,
+                            subPathStartY));
                     path.close();
                     path.moveTo(subPathStartX, subPathStartY);
                     lastX = subPathStartX;
@@ -184,7 +188,8 @@ public class SvgPathParser {
                     float y2 = helper.nextFloat();
                     float x = helper.nextFloat();
                     float y = helper.nextFloat();
-                    Log.d(null, String.format("cubic to: [%s,%s][%s,%s][%s,%s]", x1, y1, x2, y2, x, y));
+                    Log.d(null, String.format("cubic to: [%s,%s][%s,%s][%s,%s]", x1, y1, x2, y2,
+                            x, y));
                     if (cmd == 'c') {
                         x1 += lastX;
                         x2 += lastX;
@@ -232,7 +237,8 @@ public class SvgPathParser {
                     int sweepArc = (int) helper.nextFloat();
                     float x = helper.nextFloat();
                     float y = helper.nextFloat();
-                    Log.d(null, String.format("arc to: [%s,%s][%s][%s,%s][%s,%s]", rx, ry, theta, largeArc, sweepArc, x, y));
+                    Log.d(null, String.format("arc to: [%s,%s][%s][%s,%s][%s,%s]", rx, ry, theta,
+                            largeArc, sweepArc, x, y));
                     drawArc(path, lastX, lastY, x, y, rx, ry, theta, largeArc, sweepArc);
                     lastX = x;
                     lastY = y;
@@ -248,8 +254,10 @@ public class SvgPathParser {
         return path;
     }
 
-    private static void drawArc(Path p, float lastX, float lastY, float x, float y, float rx, float ry, float theta, int largeArc, int sweepArc) {
-        // TODO: 2016/1/24 not implemented yet, may be very hard to do using Android drawing facilities
+    private static void drawArc(Path p, float lastX, float lastY, float x, float y, float rx,
+                                float ry, float theta, int largeArc, int sweepArc) {
+        // TODO: 2016/1/24 not implemented yet, may be very hard to do using Android drawing
+        // facilities
     }
 
     /**
